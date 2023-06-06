@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: ctf_web
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html
+  db:
+    image: mysql:8.0
+    container_name: ctf_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: myrootpassword
+      MYSQL_DATABASE: ctf_challenge
+      MYSQL_USER: ctf_user
+      MYSQL_PASSWORD: ctf_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
